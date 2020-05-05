@@ -82,14 +82,20 @@
 	<events onkeydown="if(keycode == 38, loadFacingPano(););"	/>
 	
 	<action name="loadFacingPano">
-		if(get(view.hlookat) GT -22.5 AND get(view.hlookat) LE 22.5, loadNorthPano());
+		correcthlookat();
+		if(get(view.hlookat) GT 337.5 OR get(view.hlookat) LE 22.5, loadNorthPano());
 		if(get(view.hlookat) GT 22.5 AND get(view.hlookat) LE 67.5, loadNorthEastPano());
 		if(get(view.hlookat) GT 67.5 AND get(view.hlookat) LE 112.5, loadEastPano());
 		if(get(view.hlookat) GT 112.5 AND get(view.hlookat) LE 157.5, loadSouthEastPano());
-		if(get(view.hlookat) GT 157.5 OR get(view.hlookat) LE -157.5, loadSouthPano());
-		if(get(view.hlookat) GT -157.5 AND get(view.hlookat) LE -112.5, loadSouthWestPano());
-		if(get(view.hlookat) GT -112.5 AND get(view.hlookat) LE -67.5, loadWestPano());
-		if(get(view.hlookat) GT -67.5 AND get(view.hlookat) LE -22.5, loadNorthWestPano());
+		if(get(view.hlookat) GT 157.5 AND get(view.hlookat) LE 202.5, loadSouthPano());
+		if(get(view.hlookat) GT 202.5 AND get(view.hlookat) LE 247.5, loadSouthWestPano());
+		if(get(view.hlookat) GT 247.5 AND get(view.hlookat) LE 292.5, loadWestPano());
+		if(get(view.hlookat) GT 292.5 AND get(view.hlookat) LE 337.5, loadNorthWestPano());
+	</action>
+	
+	<action name="correcthlookat">
+		if(get(view.hlookat) LT 0.0, set(view.hlookat, calc(view.hlookat + 360));correcthlookat(););
+		if(get(view.hlookat) GT 360.0, set(view.hlookat, calc(view.hlookat - 360));correcthlookat(););
 	</action>
 
 
